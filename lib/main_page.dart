@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_app/item_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,6 +23,94 @@ class MainPage extends StatelessWidget {
             ListView(
               children: [
                 //// VIEW DATA HERE
+                //// NOTE: One Time Retrieve Data List
+                // FutureBuilder<QuerySnapshot>(
+                //   future: users.get(),
+                //   builder: (_, snapshot) {
+                //     if (snapshot.hasData) {
+                //       return Column(
+                //         children: snapshot.data!.docs
+                //             .map(
+                //               (e) => ItemCard(
+                //                ( e.data() as dynamic)['name'],
+                //                ( e.data() as dynamic)['age'],
+                //               ),
+                //             )
+                //             .toList(),
+                //       );
+                //     } else {
+                //       return Text("Loading...");
+                //     }
+                //   },
+                // ),
+                //// NOTE: Synced Retrieve Data List (SORTING LIST by age)
+                // StreamBuilder<QuerySnapshot>(
+                //   stream: users.orderBy('age', descending: true).snapshots(),
+                //   builder: (_, snapshot) {
+                //     if (snapshot.hasData) {
+                //       return Column(
+                //         children: snapshot.data!.docs
+                //             .map(
+                //               (e) => ItemCard(
+                //                ( e.data() as dynamic)['name'],
+                //                ( e.data() as dynamic)['age'],
+                //               ),
+                //             )
+                //             .toList(),
+                //       );
+                //     } else {
+                //       return Text("Loading...");
+                //     }
+                //   },
+                // ),
+                //// NOTE: Synced Retrieve Data List (FILTERED LIST by age)
+                // StreamBuilder<QuerySnapshot>(
+                //   stream: users.where('age', isGreaterThan: 20).snapshots(),
+                //   builder: (_, snapshot) {
+                //     if (snapshot.hasData) {
+                //       return Column(
+                //         children: snapshot.data!.docs
+                //             .map(
+                //               (e) => ItemCard(
+                //                ( e.data() as dynamic)['name'],
+                //                ( e.data() as dynamic)['age'],
+                //               ),
+                //             )
+                //             .toList(),
+                //       );
+                //     } else {
+                //       return Text("Loading...");
+                //     }
+                //   },
+                // ),
+                // //// NOTE: Synced Retrieve Data List (NORMAL LIST)
+                StreamBuilder<QuerySnapshot>(
+                  stream: users.orderBy('age', descending: true).snapshots(),
+                  builder: (_, snapshot) {
+                    if (snapshot.hasData) {
+                      return Column(
+                        children: snapshot.data!.docs
+                            .map(
+                              (e) => ItemCard(
+                               ( e.data() as dynamic)['name'],
+                               ( e.data() as dynamic)['age'],
+                               onUpdate: (){
+                                 users.doc(e.id).update({
+                                   'age': (e.data() as dynamic)['age']+1
+                                 });
+                               },
+                               onDelete: (){
+                                 users.doc(e.id).delete();
+                               }
+                              ),
+                            )
+                            .toList(),
+                      );
+                    } else {
+                      return Text("Loading...");
+                    }
+                  },
+                ),
                 SizedBox(
                   height: 150,
                 )
