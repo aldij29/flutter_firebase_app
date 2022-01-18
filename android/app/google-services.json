@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1090187348479",
+    "project_id": "flutter-firebase-test-589cb",
+    "storage_bucket": "flutter-firebase-test-589cb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1090187348479:android:61f09d23fb83b8693fffca",
+        "android_client_info": {
+          "package_name": "com.glyphdev.firebase_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1090187348479-ednu7sra91mspen99t4h3rv5644st924.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANIXlylLmKRchRAS50AKyEv7eXgonp0lM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1090187348479-ednu7sra91mspen99t4h3rv5644st924.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
